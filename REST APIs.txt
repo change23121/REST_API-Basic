@@ -1,0 +1,173 @@
+the data return to the client from server is done in data format.
+There are 2 formats that are used 
+1. JSON format 
+
+{"city":{
+    "movies":{
+        "category":"comming soon"
+    }
+}}
+
+2. XML format
+
+<city>
+    <movies>
+        <category> comming soon </category>
+    </movies>
+</city>
+
+when we are continuosly requesting for request, this process turn out to be cubersome to overcome this, we use REST APIs
+
+REST api creates the object and sends the value of object 
+i.e create an object on the server side and returns the value of an object.
+
+REST --> representational state transfer 
+REST is an architectural style as well as an approach for communication purpose that is often used in various web service development.
+It is a stateless client and server model 
+
+Features of rest api 
+simpler than SOAP 
+proper documentation
+Error messages
+
+Principles of REST API 
+Stateless, client server, Uniform interface, cacheable, Layered system, Code on Demand
+
+MEthods of REST API
+C       --> create          --> post
+R       --> read            --> get
+U       --> update          --> put
+D       --> delete          --> delete
+
+post, get, put and delete together are HTTP method.
+
+REST API implementation
+
+In command prompt go to your project dir and follow the steps -
+
+node --version
+// to check node version
+
+npm init
+//to initialize npm modules and packages in the folder 
+
+entry point ---> from where our workflow will start
+
+These are the details entered by me after npm init (space means I just pressed enter)
+
+-------------------------------------------------------------------------------------------------------
+package name: (demoforrestapi) demo
+version: (1.0.0) 12.16.3
+description: first application on rest api
+entry point: (index.js) script.js
+test command:
+git repository:
+keywords:
+author: poonam shekhawat
+license: (ISC)
+About to write to E:\Poonam\REST API project\DemoForRestApi\package.json:
+
+{
+  "name": "demo",
+  "version": "12.16.3",
+  "description": "first application on rest api",
+  "main": "script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "poonam shekhawat",
+  "license": "ISC"
+}
+---------------------------------------------------------------------------------------------------------
+
+next step is to install express.js by command
+ 
+npm i express
+
+next is to install joi, command is
+
+npm i joi 
+
+joi validates the info whether it is in right format or not 
+
+then install nodemon by:-
+
+npm i -g nodemon 
+
+it keeps watch on file with each extension and you don't have to 
+restart the node js server everytime you made the changes
+
+now start coding in any editor 
+
+now you need to mention the entry point of your workflow and we have mentioned script.js in our
+package.json file 
+ 
+so create script.js file 
+
+first we will import express and joi 
+now we will create an express application by assigning the express variable we just created
+this is done to understand the application and performing actions on it. 
+then we will mention app.use(express.json) 
+json file bcoz we are not using any database we are storing our data in json format.
+
+Initially server has to be running so that we have to assigned a specific port number.
+we have assigned a port environment var to 8080.
+environment var allows us to not assign port variable again and again.
+
+we have created an object of customer on the server side to send the data, intially the data
+will be stored on the object but as the changes are made the values or state of object will change. 
+
+-----------------------------------------------------------------------------------------------------------------\
+
+In this application, we will get the information of customers and then we will edit/ delete the info.
+
+request is what send from the client side and response is what it is send from server side.
+request will be the url here 
+app.get('/', (req, res) => {
+    res.send('welcome to Rest API');
+});
+
+to send the data i.e post you create the data and send 
+----------------------------------------------------------------------
+To start the server go on command prompt and type node script.js
+----------------------------------------------------------------------
+
+After intitializing the server i.e from command  "node script.js"
+launch postman tap on + icon and put these links on the url 
+
+1. localhost:8080/ and select GET method 
+        you will see welcome message
+
+2. localhost:8080/api/customers and select GET method 
+        you will see list of all the customers 
+
+3.  localhost:8080/api/customers/3 and select GET method 
+        you will see details of the customer with id 3
+        
+4.  localhost:8080/api/customers and select POST method 
+        you can add new customers, where as per the code the index will
+        auto-increment. To add the data title should  be given in the body field by
+        choosing body --> raw and paste { "title":"Your name"  } and this name will be
+        update the list, can check with get method.
+
+        We have used ValidateCustomer method to allow to insert the title only if it's length > 3
+
+5.  localhost:8080/api/customers/3 and select PUT method 
+        you can update the details of the customer with id 3.
+        To update the data title should  be given in the body field by
+        choosing body --> raw and paste { "title":"Your name"  } and this name will be
+        update the list, can check with get method.
+
+        We have used ValidateCustomer method to allow to insert the title only if it's length > 3     
+
+6.  localhost:8080/api/customers/3 and select DELETE method 
+        you can delete the  details of customer with id 3         
+
+        ---------------------------------------------------------------------------
+
+        and if the value is not found then we will get the message because we have
+        used if(!customer) res.status(404).send();
+
+------------------------------------------------------------------------------------------------
+
+Always RESTART the server after making changes.
